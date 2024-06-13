@@ -23,7 +23,7 @@ public class Main {
         int point = 1;
 
         // 맨 뒤부터 맨 앞까지 확인
-        for(int i=0; i<=6; i++) {
+        for(int i=0; i<6; i++) {
 
             // 리스트 생성 및 초기화
             ArrayList<ArrayList<Integer>> bucket = new ArrayList<>();
@@ -50,7 +50,7 @@ public class Main {
             }
 
             // 자리 조절
-            point++;
+            point*=10;
         }
 
         // 출력
