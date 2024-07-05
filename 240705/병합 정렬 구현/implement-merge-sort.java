@@ -40,7 +40,7 @@ public class Main {
         while(i<=mid && j<=high) {
 
             // 우측이 같거나 큰 경우
-            if(nums[i]<nums[j]) {
+            if(nums[i]<=nums[j]) {
                 mock[k] = nums[i];
                 k++;
                 i++;
