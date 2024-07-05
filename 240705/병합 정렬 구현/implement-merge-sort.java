@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
 
     // 병합 정렬 메서드
-    static void mergeSort(int nums[], int low, int high) {
+    static void mergeSort(int nums[], int mock[], int low, int high) {
 
         // 원소 개수가 2개 이상인 경우
         if(low<high) {
@@ -13,25 +13,22 @@ public class Main {
             int mid = (low+high)/2;
 
             // 좌측 분할
-            mergeSort(nums,low,mid);
+            mergeSort(nums,mock,low,mid);
 
             // 우측 분할
-            mergeSort(nums,mid+1,high);
+            mergeSort(nums,mock,mid+1,high);
 
             // 두 구간 병합
-            merge(nums,low,mid,high);
+            merge(nums,mock,low,mid,high);
         }
     }
 
     // 두 구간 병합 메서드
-    static void merge(int nums[], int low, int mid, int high) {
+    static void merge(int nums[], int mock[], int low, int mid, int high) {
 
         // 두 구간 시작점 설정
         int i = low;
         int j = mid+1;
-
-        // 원소 저장할 임시 배열
-        int mock[] = new int[nums.length];
 
         // 빈 배열 인덱스
         int k = low;
@@ -86,6 +83,9 @@ public class Main {
         // 숫자 배열 생성
         int nums[] = new int[cnt];
 
+        // 원소 저장할 임시 배열
+        int mock[] = new int[cnt];
+
         // 숫자 정보 입력
         st = new StringTokenizer(br.readLine());
         for(int i=0; i<cnt; i++) {
@@ -93,7 +93,7 @@ public class Main {
         }
 
         // 병합 정렬 수행
-        mergeSort(nums,0,nums.length-1);
+        mergeSort(nums,mock,0,nums.length-1);
 
         // 결과 출력
         for(int n: nums) sb.append(n).append(" ");
