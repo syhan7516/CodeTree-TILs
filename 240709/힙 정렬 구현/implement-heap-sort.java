@@ -19,34 +19,43 @@ public class Main {
         int largest = idx;
 
         // 왼쪽, 오른쪽 자식 노드 설정
-        int left = largest*2;
-        int right = largest*2+1;
+        int left = idx*2;
+        int right = idx*2+1;
 
-        // 비교
+        // 왼쪽 노드가 범위 내이면서 현재 노드보다 더 큰 경우비교
         if(left<=n && nodes[left]>nodes[largest])
             largest = left;
 
+        // 오른쪽 노드가 범위 내이면서 현재 노드보다 더 큰 경우
         if(right<=n && nodes[right]>nodes[largest])
             largest = right;
 
-        // 교환이 일어난 경우
+        // 큰 값이 현재 노드가 아닌 경우
         if(largest!=idx) {
+            
+            // 현재 노드와 큰 값으로 설정된 노드 교환
             swap(nodes,idx,largest);
-            heapify(nodes,idx,largest);
+
+            // 큰 값으로 설정된 위치 대상으로 heapify
+            heapify(nodes,n,largest);
         }
     }
 
     // 힙 정렬 수행 메서드
-    static void heapSort(int nodes[], int n, int largest) {
+    static void heapSort(int nodes[], int n) {
 
         // n/2 ~ 1번째까지 heapify 수행
         for(int i=n/2; i>0; i--) {
             heapify(nodes,n,i);
         }
 
-        // 정렬 수행
+        // n ~ 2까지 정렬 수행 (마지막에 남은 1은 교환 필요성X)
         for(int i=n; i>1; i--) {
+
+            // 최댓값 정렬
             swap(nodes,1,i);
+
+            // 1번째 대상 heapify 수행 (최댓값을 정렬한 상태이므로, n-1 상태로 수행)
             heapify(nodes,i-1,1);
         }
     }
@@ -68,7 +77,7 @@ public class Main {
         }
 
         // 힙 정렬 수행
-        heapSort(nodes,n,n/2);
+        heapSort(nodes,n);
 
         // 결과 출력
         for(int i=1; i<nodes.length; i++)
