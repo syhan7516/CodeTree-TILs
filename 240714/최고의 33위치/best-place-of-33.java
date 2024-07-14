@@ -9,9 +9,9 @@ public class Main {
         // 얻은 동전 수
         int cnt = 0;
 
-        for(int i=0; i<row+3; i++) {
-            for(int j=0; j<col+3; j++) {
-                cnt += map[i][j];
+        for(int i=0; i<3; i++) {
+            for(int j=0; j<3; j++) {
+                cnt += map[row+i][col+j];
             }
         }
 
