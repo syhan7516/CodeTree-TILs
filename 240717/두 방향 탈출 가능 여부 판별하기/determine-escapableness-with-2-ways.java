@@ -28,7 +28,7 @@ public class Main {
     public static void solve(int row, int col) {
 
         // 목표 지점에 도달한 경우
-        if(row==rowSize-1 && col== colSize-1) {
+        if(row==rowSize-1 && col==colSize-1) {
             flag = true;
             return;
         }
@@ -43,7 +43,7 @@ public class Main {
             if(inRange(ny,nx)) continue;
 
             // 이미 방문했거나, 뱀인 경우
-            if(visited[ny][nx] || map[ny][nx]==1) continue;
+            if(visited[ny][nx] || map[ny][nx]==0) continue;
 
             // 탐색 가능한 경우
             visited[ny][nx] = true;
