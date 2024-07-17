@@ -61,7 +61,7 @@ public class Main {
         }
 
         // 잠김 정도
-        degree = 0;
+        degree = 1;
 
         // 결과
         answer = -1;
