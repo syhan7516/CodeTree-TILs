@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Main {
 
-    // 결과, 가로 크기, 세로 크기, 잠김 정도
-    public static int answer, rowSize, colSize, degree;
+    // 결과, 가로 크기, 세로 크기, 잠김 정도, 높이
+    public static int answer, rowSize, colSize, degree, high;
 
     // 격자
     public static int map[][];
@@ -61,13 +61,16 @@ public class Main {
         }
 
         // 잠김 정도
-        degree = 1;
+        degree = 0;
 
         // 결과
         answer = -1;
 
+        // 높이 
+        high = 0;
+
         // 안전 지대 확인하기
-        while(true) {
+        while(degree<=100) {
 
             // 방문 여부 배열 생성
             visited = new boolean[rowSize][colSize];
@@ -98,17 +101,17 @@ public class Main {
                 }
             }
 
-            // 이전 높이보다 안전지대가 적은 경우
-            if(answer>=cnt) break;
-
-            // 결과 갱신
-            answer = cnt;
+            // 이전보다 안전 지대가 더 많은 경우
+            if(answer<cnt) {
+                answer = cnt;
+                high = degree;
+            }
 
             // 잠김 정도 증가
             degree++;
         }
 
         // 결과 출력
-        System.out.println((degree-1)+" "+answer);
+        System.out.println(high+" "+answer);
     }
 }
