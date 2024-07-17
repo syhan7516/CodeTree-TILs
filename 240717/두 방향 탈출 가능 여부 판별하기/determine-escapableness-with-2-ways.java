@@ -21,7 +21,7 @@ public class Main {
 
     // 범위 확인 메서드
     public static boolean inRange(int row, int col) {
-        return !(row<0 || row>rowSize-1 || col<0 || col>colSize-1);
+        return (row<0 || row>rowSize-1 || col<0 || col>colSize-1);
     }
     
     // 미로 탈출하기 메서드
@@ -40,7 +40,7 @@ public class Main {
             int nx = col+dx[d];
 
             // 범위 확인
-            if(!inRange(ny,nx)) continue;
+            if(inRange(ny,nx)) continue;
 
             // 이미 방문했거나, 뱀인 경우
             if(visited[ny][nx] || map[ny][nx]==1) continue;
