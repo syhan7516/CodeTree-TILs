@@ -57,11 +57,13 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<colSize; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-                degree = Math.min(degree,map[i][j]);
             }
         }
 
-        // 결고
+        // 잠김 정도
+        degree = 1;
+
+        // 결과
         answer = -1;
 
         // 안전 지대 확인하기
