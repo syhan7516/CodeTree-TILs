@@ -17,7 +17,7 @@ public class Main {
 
         // 계단 오르기
         for(int i=4; i<1001; i++) {
-            DP[i] = DP[i-2]+DP[i-3];
+            DP[i] = (DP[i-2]+DP[i-3])%10007;
         }
 
         // 결과 출력
