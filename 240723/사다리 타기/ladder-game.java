@@ -27,18 +27,18 @@ public class Main {
     public static int result[];
 
     // 사다리 타기 메서드
-    public static void execute(int saram, int cnt) {
+    public static void execute(int order, int cnt) {
 
         // 시작 위치
         int y = 1;
-        int x = saram;
+        int x = order;
 
         // 내려가기
         while(true) {
 
             // 끝까지 내려간 경우
             if(y==maxRow+1) {
-                ladder[maxRow+1][x] = saram;
+                ladder[maxRow+1][x] = order;
                 break;
             }
 
@@ -89,16 +89,16 @@ public class Main {
             return;
         }
 
-        // 확인 가로 줄
-        Line line = rows.get(idx);
-
-        // 선택한 경우
+        // 가로 줄을 선택한 경우
         solve(idx+1,cnt+1);
 
-        // 선택하지 않은 경우
+        // 가로 줄을 선택하지 않은 경우
+        Line line = rows.get(idx);
         ladder[line.rowNum][line.number] = 0;
         ladder[line.rowNum][line.number+1] = 0;
         solve(idx+1,cnt);
+        
+        // 사다리 복구
         ladder[line.rowNum][line.number] = 1;
         ladder[line.rowNum][line.number+1] = 2;
     }
