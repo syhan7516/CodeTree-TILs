@@ -27,7 +27,7 @@ public class Main {
     public static int result[];
 
     // 사다리 타기 메서드
-    public static void execute(int order, int cnt) {
+    public static boolean execute(int order, int cnt) {
 
         // 시작 위치
         int y = 0;
@@ -60,19 +60,14 @@ public class Main {
 
         // 가로 줄이 전부 선택된 경우
         if(cnt==rowCnt) {
-            for(int i=1; i<=people; i++)
-                result[i] = ladder[maxRow+1][i];
+            result[x] = order;
+            return true;
         }
 
         // 아닌 경우
         else {
-
-            // 동일한지 비교
-            for(int i=1; i<=people; i++)
-                if(result[i] != ladder[maxRow+1][i]) return;
-
-            // 결과 갱신
-            answer = Math.min(answer,cnt);
+            if(result[x]==ladder[maxRow+1][x]) return true;
+            else return false;
         }
     }
 
@@ -84,7 +79,10 @@ public class Main {
 
             // 사다리 타기
             for(int i=1; i<=people; i++)
-                execute(i,cnt);
+                if(!execute(i,cnt)) return;
+
+            // 결과 갱신
+            answer = Math.min(answer,cnt);
 
             return;
         }
