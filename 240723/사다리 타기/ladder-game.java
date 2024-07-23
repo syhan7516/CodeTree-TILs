@@ -66,11 +66,13 @@ public class Main {
 
         // 아닌 경우
         else {
-            for(int i=1; i<=people; i++) {
-                if(result[i] != ladder[maxRow+1][i]) return;
-            }
 
-            answer = Math.min(answer,cnt-1);
+            // 동일한지 비교
+            for(int i=1; i<=people; i++)
+                if(result[i] != ladder[maxRow+1][i]) return;
+            
+            // 결과 갱신
+            answer = Math.min(answer,cnt);
         }
     }
 
@@ -95,10 +97,10 @@ public class Main {
 
         // 선택하지 않은 경우
         ladder[line.rowNum][line.number] = 0;
-        ladder[line.rowNum][line.number] = 0;
+        ladder[line.rowNum][line.number+1] = 0;
         solve(idx+1,cnt);
         ladder[line.rowNum][line.number] = 1;
-        ladder[line.rowNum][line.number] = 2;
+        ladder[line.rowNum][line.number+1] = 2;
     }
 
     public static void main(String[] args) throws IOException {
@@ -141,7 +143,6 @@ public class Main {
         solve(0,0);
 
         // 결과 출력
-        if(answer==-1) System.out.println(0);
-        else System.out.println(answer);
+        System.out.println(answer);
     }
 }
