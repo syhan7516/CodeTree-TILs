@@ -30,7 +30,7 @@ public class Main {
     public static void execute(int order, int cnt) {
 
         // 시작 위치
-        int y = 1;
+        int y = 0;
         int x = order;
 
         // 내려가기
@@ -38,7 +38,7 @@ public class Main {
 
             // 끝까지 내려간 경우
             if(y==maxRow+1) {
-                ladder[maxRow+1][x] = order;
+                ladder[y][x] = order;
                 break;
             }
 
@@ -96,6 +96,7 @@ public class Main {
         Line line = rows.get(idx);
         ladder[line.rowNum][line.number] = 0;
         ladder[line.rowNum][line.number+1] = 0;
+
         solve(idx+1,cnt);
         
         // 사다리 복구
