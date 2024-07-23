@@ -70,7 +70,7 @@ public class Main {
             // 동일한지 비교
             for(int i=1; i<=people; i++)
                 if(result[i] != ladder[maxRow+1][i]) return;
-            
+
             // 결과 갱신
             answer = Math.min(answer,cnt);
         }
@@ -138,7 +138,7 @@ public class Main {
         }
 
         // 줄 고르기
-        answer = Integer.MAX_VALUE;
+        answer = rowCnt;
         result = new int[people+1];
         solve(0,0);
 
