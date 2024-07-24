@@ -4,7 +4,8 @@ import java.io.*;
 public class Main {
 
     // 결과, 피연산자 개수
-    public static int answer, numCnt;
+    public static long answer;
+    public static int numCnt;
 
     // 식
     public static String letters;
@@ -22,7 +23,7 @@ public class Main {
             int idx = 0; 
 
             // 연산 결과
-            int result = selected.get(idx++);
+            long result = selected.get(idx++);
 
             // 연산자 확인
             for(int i=1; i<letters.length(); i+=2) {
