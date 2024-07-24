@@ -20,8 +20,8 @@ public class Main {
     // 격자
     public static int map[][];
 
-    // 돌 선택 여부 배열
-    public static boolean selected[];
+    // 선택된 돌 저장 리스트
+    public static ArrayList<Integer> selected;
 
     // 방문 여부 배열
     public static boolean visited[][];
@@ -37,20 +37,21 @@ public class Main {
     public static void bfs() {
 
         // 이동 칸 수
-        int cnt = 0;
+        int moveCnt = 0;
 
         // 위치 저장 큐 생성
         Queue<Point> queue = new LinkedList<>();
 
         // 시작 위치 순회
-        for(int i=0; i<rocks.size(); i++) {
+        for(int i=0; i<starts.size(); i++) {
 
             // 초기 설정
-            cnt = 0;
+            moveCnt = 0;
             visited = new boolean[size][size];
-            Point rock = rocks.get(i);
-            queue.offer(rock);
-            visited[rock.y][rock.x] = true;
+            Point start = starts.get(i);
+            queue.offer(start);
+            visited[start.y][start.x] = true;
+            moveCnt++;
 
             while(!queue.isEmpty()) {
 
@@ -71,12 +72,12 @@ public class Main {
                     // 탐색 대상 추가
                     queue.offer(new Point(ny,nx));
                     visited[ny][nx] = true;
-                    cnt++;
+                    moveCnt++;
                 }
             }
 
             // 결과 갱신
-            answer = Math.max(answer,cnt);
+            answer = Math.max(answer,moveCnt);
         }
     }
 
@@ -87,26 +88,18 @@ public class Main {
         if(cnt==rockCnt) {
 
             // 돌 제거하기
-            for(int i=0; i<rocks.size(); i++) {
-                
-                // 선택된 돌인 경우
-                if(selected[i]) {
-                    Point rock = rocks.get(i);
-                    map[rock.y][rock.x] = 0;
-                }
+            for(int i=0; i<selected.size(); i++) {
+                Point rock = rocks.get(selected.get(i));
+                map[rock.y][rock.x] = 0;
             }
 
             // 탐색 수행
             bfs();
 
             // 돌 놔두기
-            for(int i=0; i<rocks.size(); i++) {
-                
-                // 선택된 돌인 경우
-                if(selected[i]) {
-                    Point rock = rocks.get(i);
-                    map[rock.y][rock.x] = 1;
-                }
+            for(int i=0; i<selected.size(); i++) {
+                Point rock = rocks.get(selected.get(i));
+                map[rock.y][rock.x] = 1;
             }
 
             return;
@@ -114,9 +107,9 @@ public class Main {
 
         // 돌 선택하기
         for(int i=idx; i<rocks.size(); i++) {
-            selected[i] = true;
+            selected.add(i);
             solve(i+1,cnt+1);
-            selected[i] = false;
+            selected.remove(selected.size()-1);
         }
     }
 
@@ -142,7 +135,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<size; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-                
+
                 // 돌 위치인 경우
                 if(map[i][j]==1) rocks.add(new Point(i,j));
             }
@@ -156,8 +149,8 @@ public class Main {
             starts.add(new Point(startY-1,startX-1));
         }
 
-        // 돌 선택 여부 배열 생성
-        selected = new boolean[rocks.size()];
+        // 선택된 돌 저장 리스트 생성
+        selected = new ArrayList<>();
 
         // 돌 선택하기
         answer = 0;
