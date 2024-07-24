@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Main {
 
-    // 결과, 피연산자 개수
-    public static int answer, numCnt;
+    // 결과
+    public static int answer;
 
     // 식
     public static String letters;
@@ -16,13 +16,10 @@ public class Main {
     public static void solve(int cnt) {
 
         // 선택이 완료된 경우
-        if(cnt==numCnt) {
-
-            // 피연자 인덱스
-            int idx = 0; 
+        if(cnt==6) {
 
             // 연산 결과
-            int result = selected.get(idx++);
+            int result = selected.get(letters.charAt(0)-'a');
 
             // 연산자 확인
             for(int i=1; i<letters.length(); i+=2) {
@@ -30,14 +27,17 @@ public class Main {
                 // 현재 연산자
                 char c = letters.charAt(i);
 
+                // 현재 피연산자
+                char num = letters.charAt(i+1);
+
                 // +
-                if(c=='+') result += selected.get(idx++);
+                if(c=='+') result += selected.get(num-'a');
 
                 // -
-                else if(c=='-') result -= selected.get(idx++);
+                else if(c=='-') result -= selected.get(num-'a');
 
                 // *
-                else result *= selected.get(idx++);
+                else result *= selected.get(num-'a');
             }
 
             // 결과 갱신
@@ -63,9 +63,6 @@ public class Main {
         // 결과
         answer = 0;
 
-        // 피연산자 개수
-        numCnt = letters.length()/2+1;
-
         // 선택된 피연산자 저장 리스트 생성
         selected = new ArrayList<>();
 
@@ -73,7 +70,6 @@ public class Main {
         solve(0);
 
         // 결과 출력
-        if(letters.length()==1) System.out.println(4);
-        else System.out.println(answer);
+        System.out.println(answer);
     }
 }
