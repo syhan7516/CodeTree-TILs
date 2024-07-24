@@ -42,18 +42,23 @@ public class Main {
         // 위치 저장 큐 생성
         Queue<Point> queue = new LinkedList<>();
 
+        // 방문 여부 배열 생성
+        visited = new boolean[size][size];
+
         // 시작 위치 순회
         for(int i=0; i<starts.size(); i++) {
-
-            // 초기 설정
-            moveCnt = 0;
-            visited = new boolean[size][size];
             Point start = starts.get(i);
             queue.offer(start);
             visited[start.y][start.x] = true;
             moveCnt++;
+        }
 
-            while(!queue.isEmpty()) {
+        while(!queue.isEmpty()) {
+
+            // 큐 크기
+            int queueSize = queue.size();
+
+            while(queueSize-->0) {
 
                 // 현재 위치
                 Point current = queue.poll();
@@ -75,10 +80,10 @@ public class Main {
                     moveCnt++;
                 }
             }
-
-            // 결과 갱신
-            answer = Math.max(answer,moveCnt);
         }
+
+        // 결과 갱신
+        answer = Math.max(answer,moveCnt);
     }
 
     // 돌 선택하기 메서드
