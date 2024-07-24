@@ -73,7 +73,7 @@ public class Main {
         solve(0);
 
         // 결과 출력
-        if(letters.length()==1) System.out.println(1);
+        if(letters.length()==1) System.out.println(4);
         else System.out.println(answer);
     }
 }
