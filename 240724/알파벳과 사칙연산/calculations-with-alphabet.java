@@ -24,7 +24,10 @@ public class Main {
             else if(c=='+') answer += 4;
 
             // *
-            else answer *= 4;
+            else {
+                if(answer<0) answer *= 1;
+                else answer *= 4;
+            }
         }
 
         // 결과 출력
