@@ -16,7 +16,7 @@ public class Main {
     public static void solve(int cnt) {
 
         // 선택이 완료된 경우
-        if(cnt==6) {
+        if(cnt==5) {
 
             // 연산 결과
             int result = selected.get(letters.charAt(0)-'a');
