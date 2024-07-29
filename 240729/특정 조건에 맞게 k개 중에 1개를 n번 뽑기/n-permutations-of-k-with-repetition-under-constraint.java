@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Main {
 
-    // 숫자 범위, 반복 횟수, 연속한 숫자, 연속한 개수
-    public static int range, maxCnt, preNum, numCnt;
+    // 숫자 범위, 반복 횟수
+    public static int range, maxCnt;
     
     // 결과 저장 빌더
     public static StringBuilder sb;
@@ -13,7 +13,10 @@ public class Main {
     public static ArrayList<Integer> nums;
 
     // 숫자 선택하기 메서드
-    public static void solve(int cnt) {
+    public static void solve(int cnt, int preNum, int numCnt) {
+
+        // 동일 숫자가 3개인 경우
+        if(numCnt==3) return;
 
         // 선택이 완료된 경우
         if(cnt==maxCnt) {
@@ -27,27 +30,16 @@ public class Main {
 
         // 숫자 선택하기
         for(int i=1; i<=range; i++) {
+            
+            nums.add(i);
+            
+            // 이전과 동일한 숫자를 선택한 경우
+            if(i==preNum) solve(cnt+1,i,numCnt+1);
 
-            // 연속인 숫자 개수가 3개 이상인 경우
-            if(preNum==i && numCnt==2) continue;
-
-            // 아닌 경우
-            else {
-
-                // 이전과 동일한 숫자인 경우
-                if(preNum==i) numCnt++;
-
-                // 동일하지 않는 경우
-                else {
-                    preNum = i;
-                    numCnt = 1;
-                }
-                
-                nums.add(i);
-                solve(cnt+1);
-                nums.remove(nums.size()-1);
-            }
-           
+            // 다른 숫자를 선택한 경우
+            else solve(cnt+1,i,1);
+            
+            nums.remove(nums.size()-1);
         }
     }
     
@@ -65,9 +57,7 @@ public class Main {
 
         // 숫자 선택하기
         sb = new StringBuilder();
-        preNum = -1;
-        numCnt = -1;
-        solve(0);
+        solve(0,0,0);
 
         // 결과 출력
         System.out.println(sb.toString());
