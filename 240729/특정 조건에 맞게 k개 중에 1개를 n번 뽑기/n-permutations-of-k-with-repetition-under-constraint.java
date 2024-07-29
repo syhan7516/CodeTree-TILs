@@ -34,6 +34,7 @@ public class Main {
             // 3개 이상인 경우
             if(num[i]==2) continue;
 
+            num[i]++;
             nums.add(i);
             solve(cnt+1);
             num[nums.get(nums.size()-1)]--;
