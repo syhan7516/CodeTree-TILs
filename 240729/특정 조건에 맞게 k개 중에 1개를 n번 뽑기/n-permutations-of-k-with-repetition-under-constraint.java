@@ -3,14 +3,11 @@ import java.io.*;
 
 public class Main {
 
-    // 숫자 범위, 반복 횟수
-    public static int range, maxCnt;
+    // 숫자 범위, 반복 횟수, 연속한 숫자, 연속한 개수
+    public static int range, maxCnt, preNum, numCnt;
     
     // 결과 저장 빌더
     public static StringBuilder sb;
-
-    // 숫자 개수 배열
-    public static int num[];
 
     // 선택된 숫자 저장 리스트
     public static ArrayList<Integer> nums;
@@ -31,14 +28,26 @@ public class Main {
         // 숫자 선택하기
         for(int i=1; i<=range; i++) {
 
-            // 3개 이상인 경우
-            if(num[i]==2) continue;
+            // 연속인 숫자 개수가 3개 이상인 경우
+            if(preNum==i && numCnt==2) continue;
 
-            num[i]++;
-            nums.add(i);
-            solve(cnt+1);
-            num[nums.get(nums.size()-1)]--;
-            nums.remove(nums.size()-1);
+            // 아닌 경우
+            else {
+
+                // 이전과 동일한 숫자인 경우
+                if(preNum==i) numCnt++;
+
+                // 동일하지 않는 경우
+                else {
+                    preNum = i;
+                    numCnt = 1;
+                }
+                
+                nums.add(i);
+                solve(cnt+1);
+                nums.remove(nums.size()-1);
+            }
+           
         }
     }
     
@@ -51,14 +60,13 @@ public class Main {
         range = Integer.parseInt(st.nextToken());
         maxCnt = Integer.parseInt(st.nextToken());
 
-        // 숫자 개수 배열 생성
-        num = new int[range+1];
-
         // 선택된 숫저 저장 리스트 생성
         nums = new ArrayList<Integer>();
 
         // 숫자 선택하기
         sb = new StringBuilder();
+        preNum = -1;
+        numCnt = -1;
         solve(0);
 
         // 결과 출력
