@@ -24,20 +24,30 @@ public class Main {
 
         // 결과 갱신
         answer = Math.max(answer,cnt);
-        
-        // 이동 방향 확인
-        int ny = row+dy[move[row][col]];
-        int nx = col+dx[move[row][col]];
 
-        // 범위 확인
-        if(ny<0 || ny>size-1 || nx<0 || nx>size-1) return;
+        // 현재 위치
+        int y = row;
+        int x = col;
 
-        // 방문하거나 현재 칸보다 크지 않은 경우
-        if(visited[ny][nx] || map[ny][nx]<=map[row][col]) return;
+        // 같은 방향으로 계속 이동
+        while(true) {
 
-        // 이동
-        visited[ny][nx] = true;
-        solve(ny,nx,cnt+1);
+            // 이동 방향 확인
+            y = y+dy[move[row][col]];
+            x = x+dx[move[row][col]];
+
+            // 범위 확인
+            if(y<0 || y>size-1 || x<0 || x>size-1) return;
+
+            // 미방문이면서 현재 칸보다 큰 경우
+            if(!visited[y][x] && map[row][col]<map[y][x]) {
+            
+                // 이동
+                visited[y][x] = true;
+                solve(y,x,cnt+1);
+                visited[y][x] = false;
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -83,7 +93,7 @@ public class Main {
 
         // 이동
         visited[startY-1][startX-1] = true;
-        solve(startY-1,startX-1,1);
+        solve(startY-1,startX-1,0);
         
         // 결과 출력
         System.out.println(answer);
