@@ -65,6 +65,9 @@ public class Main {
             // 현재 위치
             Point current = queue.poll();
 
+            // 이미 도착한 사람인 경우
+            if(complete[current[num]]) continue;
+
             // 비 피하는 공간인 경우
             if(map[current.y][current.x]==3 && !complete[current.num]) {
                 Point point = sarams.get(current.num);
