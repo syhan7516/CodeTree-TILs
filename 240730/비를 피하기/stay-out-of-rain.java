@@ -30,6 +30,9 @@ public class Main {
     // 방문 여부 배열
     public static boolean visited[][][];
 
+    // 도착 여부 배열
+    public static boolean complete[];
+
     // 방향 벡터
     public static int dy[] = {0,1,0,-1};
     public static int dx[] = {1,0,-1,0};
@@ -39,6 +42,9 @@ public class Main {
 
     // 비 피하기 메서드
     public static void solve() {
+
+        // 도착 여부 배열 생성
+        complete = new boolean[people];
 
         // 방문 여부 배열 생성
         visited = new boolean[people][size][size];
@@ -60,9 +66,10 @@ public class Main {
             Point current = queue.poll();
 
             // 비 피하는 공간인 경우
-            if(map[current.y][current.x]==3) {
+            if(map[current.y][current.x]==3 && !complete[current.num]) {
                 Point point = sarams.get(current.num);
                 answer[point.y][point.x] = current.dist;
+                complete[current.num] = true;
                 continue;
             }
 
