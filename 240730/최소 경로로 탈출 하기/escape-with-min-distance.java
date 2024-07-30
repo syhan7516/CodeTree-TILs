@@ -16,8 +16,8 @@ class Point {
 
 public class Main {
 
-    // 격자 크기
-    public static int rowSize, colSize;
+    // 결과, 격자 크기
+    public static int answer, rowSize, colSize;
 
     // 격자
     public static int map[][];
@@ -50,7 +50,7 @@ public class Main {
 
             // 목적지인 경우
             if(current.y==rowSize-1 && current.x== colSize-1) {
-                System.out.println(current.dist);
+                answer = current.dist;
                 return;
             }
 
@@ -94,6 +94,10 @@ public class Main {
         }
 
         // 탈춯하기
+        answer = -1;
         solve();
+
+        // 결과 출력
+        System.out.println(answer);
     }
 }
