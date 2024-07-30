@@ -34,8 +34,8 @@ public class Main {
     public static int dy[] = {0,1,0,-1};
     public static int dx[] = {1,0,-1,0};
 
-    // 사람 위치, 비 피하는 공간 위치 정보 저장 리스트
-    public static ArrayList<Point> sarams, spaces;
+    // 사람 위치 정보 저장 리스트
+    public static ArrayList<Point> sarams;
 
     // 비 피하기 메서드
     public static void solve() {
@@ -60,8 +60,7 @@ public class Main {
             Point current = queue.poll();
 
             // 비 피하는 공간인 경우
-            if(map[current.y][current.x]==3 && answer[current.y][current.x]>0) {
-                answer[current.y][current.x]--;
+            if(map[current.y][current.x]==3) {
                 Point point = sarams.get(current.num);
                 answer[point.y][point.x] = current.dist;
                 continue;
@@ -83,12 +82,6 @@ public class Main {
                 visited[current.num][ny][nx] = true;
             }
         }
-
-        // 비 피하는 공간 0 처리
-        for(int i=0; i<spaces.size(); i++) {
-            Point point = spaces.get(i);
-            answer[point.y][point.x] = 0;
-        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -107,9 +100,8 @@ public class Main {
         // 결과 배열 생성
         answer = new int[size][size];
 
-        // 사람 위치, 비 피하는 공간 위치 정보 저장 리스트
+        // 사람 위치 정보 저장 리스트 생성
         sarams = new ArrayList<>();
-        spaces = new ArrayList<>();
 
         // 격자 정보 입력
         int idx = 0;
@@ -122,12 +114,6 @@ public class Main {
                 if(map[i][j]==2) {
                     sarams.add(new Point(idx++,i,j,0));
                     answer[i][j] = -1;
-                }
-
-                // 비 피하는 곳인 경우
-                if(map[i][j]==3) {
-                    spaces.add(new Point(-1,i,j,0));
-                    answer[i][j] = space;
                 }
             }
         }
