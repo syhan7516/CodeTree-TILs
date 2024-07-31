@@ -6,6 +6,9 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
+        // 결과
+        int answer = 0;
+
         // 원소 개수 입력
         int numCnt = Integer.parseInt(br.readLine());
 
@@ -19,12 +22,13 @@ public class Main {
 
         // DP 테이블 생성
         int DP[] = new int[numCnt];
+        DP[0] = 1;
 
         // 최대 점프 횟수 구하기
         for(int i=0; i<numCnt; i++) {
 
             // 0인 경우
-            if(nums[i]==0) continue;
+            if(DP[i]==0) continue;
 
             for(int j=1; j<=nums[i]; j++) {
 
@@ -36,10 +40,11 @@ public class Main {
 
                 // 해당 위치에 더 많은 점프를 한 경우
                 DP[target] = Math.max(DP[target],DP[i]+1);
+                answer = Math.max(answer,DP[target]);
             }
         }
         
         // 결과
-        System.out.println(DP[numCnt-1]);
+        System.out.println(answer-1);
     }
 }
