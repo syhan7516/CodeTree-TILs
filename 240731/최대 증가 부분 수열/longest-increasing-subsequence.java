@@ -7,7 +7,7 @@ public class Main {
         StringTokenizer st;
 
         // 결과
-        int answer = 0;
+        int answer = 1;
 
         // 원소 개수 입력
         int numCnt = Integer.parseInt(br.readLine());
