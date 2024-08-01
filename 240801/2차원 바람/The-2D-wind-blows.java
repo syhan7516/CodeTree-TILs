@@ -61,7 +61,7 @@ public class Main {
         int mock = map[startY][endX];
 
         // 첫 번째 이동
-        for(int i=endX; i>0; i--)
+        for(int i=endX; i>startX; i--)
             map[startY][i] = map[startY][i-1];
 
         // 두 번째 이동
@@ -73,7 +73,7 @@ public class Main {
             map[endY][i] = map[endY][i+1];
 
         // 네 번째 이동
-        for(int i=endY; i>startY; i--)
+        for(int i=endY; i>startY+1; i--)
             map[i][endX] = map[i-1][endX];
 
         // 마지막 처리
