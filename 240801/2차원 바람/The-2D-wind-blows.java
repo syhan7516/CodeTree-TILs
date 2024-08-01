@@ -73,7 +73,7 @@ public class Main {
             map[endY][i] = map[endY][i+1];
 
         // 네 번째 이동
-        for(int i=endY; i>1; i--)
+        for(int i=endY; i>startY; i--)
             map[i][endX] = map[i-1][endX];
 
         // 마지막 처리
