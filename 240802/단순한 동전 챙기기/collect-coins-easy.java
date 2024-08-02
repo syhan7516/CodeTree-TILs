@@ -49,8 +49,9 @@ public class Main {
             Point current = queue.poll();
 
             // 목적지에 도착한 경우
-            if(current.y==ey && current.x==ex)
+            if(current.y==ey && current.x==ex) {
                 return current.value;
+            }
 
             // 주변 확인
             for(int d=0; d<4; d++) {
@@ -82,16 +83,16 @@ public class Main {
             int dist = 0;
             int sy = startY;
             int sx = startX;
-
+            
             // 동전 확인
             for(int i=0; i<selected.size(); i++) {
-                
+
                 // 현재 동전
-                Point coin = coins.get(i);
+                Point coin = coins.get(selected.get(i));
 
                 // 동전 찾기
                 dist += find(sy,sx,coin.y,coin.x,new boolean[size][size]);
-                
+
                 // 출발 위치 갱신
                 sy = coin.y;
                 sx = coin.x;
