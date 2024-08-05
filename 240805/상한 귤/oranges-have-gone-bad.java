@@ -122,11 +122,18 @@ public class Main {
                 // 비어있는 경우
                 if(map[i][j]==0) sb.append(-1).append(" ");
 
-                // 상한 귤인 경우
+                // 기존 상한 귤인 경우
                 else if(map[i][j]==2) sb.append(0).append(" ");
 
-                // 귤인 경우
-                else sb.append(result[i][j]).append(" ");
+                // 기존 귤인 경우
+                else {
+
+                    // 상한 귤로 변한 경우
+                    if(result[i][j]!=0) sb.append(result[i][j]).append(" ");
+
+                    // 상하지 않은 귤인 경우
+                    else sb.append(-2).append(" ");
+                }
             }
             sb.append("\n");
         }
