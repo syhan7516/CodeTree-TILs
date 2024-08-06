@@ -51,7 +51,7 @@ public class Main {
         top = new int[floor+1];
 
         // 각 층 정보 입력
-        for(int i=floor; i>0; i--) 
+        for(int i=1; i<=floor; i++) 
             top[i] = Integer.parseInt(br.readLine());
 
         // 블록 제거
@@ -68,7 +68,7 @@ public class Main {
 
         // 결과 저장
         sb.append(exist).append("\n");
-        for(int i=floor; i>0; i--)
+        for(int i=1; i<=floor; i++)
             if(top[i]!=0) sb.append(top[i]).append("\n");
         
         // 결과 출력
