@@ -7,9 +7,7 @@ public class Main {
         StringTokenizer st;
 
         // 우선 순위 큐 생성
-        PriorityQueue<Integer> queue = new PriorityQueue<>(
-            (a,b) -> a-b
-        );
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
         // 명령어 개수 입력
         int orederCnt = Integer.parseInt(br.readLine());
