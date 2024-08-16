@@ -12,7 +12,7 @@ public class Main {
         // 누적합 순회
         for(int i=range; i<=size; i++) {
             for(int j=range; j<=size; j++) {
-                int sum = prefixSum[i][j]-prefixSum[i-1][j]-prefixSum[i][j-1]+prefixSum[i-1][j-1];
+                int sum = prefixSum[i][j]-prefixSum[i-range][j]-prefixSum[i][j-range]+prefixSum[i-range][j-range];
                 max = Math.max(max,sum);
             }
         }
