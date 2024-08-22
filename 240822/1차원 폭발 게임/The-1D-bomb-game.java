@@ -10,13 +10,13 @@ public class Main {
     public static int boom[];
 
     // 폭탄 처리 메서드
-    public static void setBoom(int start, int prefix) {
+    public static void setBoom(int end, int prefix) {
 
         // 터진 개수
         int find = 0;
 
         // 폭탄 대상 0으로 설정
-        for(int i=start; i<boom.length; i++) {
+        for(int i=end; i>=0; i--) {
 
             // 폭탄인 경우
             if(boom[i]!=0) {
@@ -46,7 +46,7 @@ public class Main {
             boolean flag = false;
 
             // 차례로 폭탄 확인
-            for(int i=boom.length-1; i>=0; i--) {
+            for(int i=0; i<boom.length; i++) {
                 
                 // 폭탄이 이미 터진 경우
                 if(boom[i]==0) continue;
@@ -59,7 +59,7 @@ public class Main {
 
                     // 누적 개수가 조건에 부합한 경우
                     if(prefix>=cnt) {
-                        setBoom(i+1,prefix);
+                        setBoom(i-1,prefix);
                         flag = true;
                         break;
                     }
@@ -74,7 +74,7 @@ public class Main {
             if(!flag) {
 
                 // 조건에 부합하는 경우
-                if(prefix>=cnt) setBoom(0,prefix);
+                if(prefix>=cnt) setBoom(boom.length-1,prefix);
                 else return;
             }
         }
