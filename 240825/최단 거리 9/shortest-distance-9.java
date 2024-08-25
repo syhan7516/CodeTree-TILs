@@ -69,10 +69,35 @@ public class Main {
         }
     }
 
+    // 결과 저장 메서드
+    public static String getResult(int endNode) {
+
+        // 빌더 생성
+        StringBuilder sb = new StringBuilder();
+
+        // 결과 저장 리스트 생성
+        ArrayList<Integer> result = new ArrayList<>();
+
+        // 경로 역탐색
+        int mock = endNode;
+        while(true) {
+            result.add(mock);
+            mock = path[mock];
+            if(mock==0) break;
+        }
+
+        // 결과 저장
+        sb.append(dist[endNode]).append("\n");
+        for(int i=result.size()-1; i>=0; i--)
+            sb.append(result.get(i)).append(" ");
+
+        return sb.toString();
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        StringBuilder sb = new StringBuilder();
+       
 
         // 정점, 간선 개수 입력
         st = new StringTokenizer(br.readLine());
@@ -96,6 +121,7 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
             relation.get(s).add(new Edge(e,d));
+            relation.get(e).add(new Edge(s,d));
         }
 
         // 시작 지점, 도착 지점 입력
@@ -106,20 +132,7 @@ public class Main {
         // 최단 거리 구하기
         solve(startNode);
 
-        // 결과 저장
-        sb.append(dist[endNode]).append("\n");
-
-        // 결과 저장
-        int mock = endNode;
-        ArrayList<Integer> result = new ArrayList<>();
-        while(true) { 
-            result.add(mock);
-            mock = path[mock];
-            if(mock==0) break;
-        }
-        
-        for(int i=result.size()-1; i>=0; i--)
-            sb.append(result.get(i)).append(" ");
-        System.out.println(sb.toString());
+        // 결과 출력
+        System.out.println(getResult(endNode));
     }
 }
