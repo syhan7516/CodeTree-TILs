@@ -51,11 +51,14 @@ public class Main {
     // 거리 확인 메서드
     public static void solveDiff(int distLen) {
 
+        // 색깔 시작 위치
+        Point start = points.get(0);
+        
         // 초기 설정
         Queue<Point> queue = new LinkedList<>();
         visited = new boolean[rowSize][colSize];
-        queue.offer(new Point(0,0));
-        visited[0][0] = true;
+        queue.offer(new Point(start.y,start.x));
+        visited[start.y][start.x] = true;
 
         // 탐색 수행
         while(!queue.isEmpty()) {
