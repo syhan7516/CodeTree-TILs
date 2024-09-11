@@ -2,21 +2,13 @@ import java.util.*;
 import java.io.*;
 
 // 위치 클래스
-class Point implements Comparable<Point> {
+class Point {
     int y;
     int x;
-    int value;
-    int maxDist;
 
-    public Point(int y, int x, int value, int maxDist) {
+    public Point(int y, int x) {
         this.y = y;
         this.x = x;
-        this.value = value;
-        this.maxDist = Math.max(maxDist,value);
-    }
-
-    public int compareTo(Point other) {
-        return this.value - other.value;
     }
 }
 
@@ -34,36 +26,42 @@ public class Main {
     // 방문 위치 여부 배열
     public static boolean visited[][];
 
-    // 우선 순위 큐
-    public static PriorityQueue<Point> queue;
-
     // 방향 벡터
     public static int dy[] = {0,1,0,-1};
     public static int dx[] = {1,0,-1,0};
 
-    // 거리 확인 메서드
-    public static int solve(int start, int end) {
+    // 색깔 위치 방문 여부 확인 메서드
+    public static boolean solveVisited() {
 
-        // 시작 위치, 목적지 위치
-        Point s = points.get(start);
-        Point e = points.get(end);
+        // 색깔 위치 순회
+        for(int i=0; i<points.size(); i++) {
+
+            // 확인 위치
+            Point point = points.get(i);
+
+            // 미방문인 경우
+            if(!visited[point.y][point.x])
+                return false;
+        }
+
+        return true;
+    }
+
+
+    // 거리 확인 메서드
+    public static void solveDiff(int distLen) {
 
         // 초기 설정
-        queue = new PriorityQueue<>();
+        Queue<Point> queue = new LinkedList<>();
         visited = new boolean[rowSize][colSize];
-        queue.add(s);
-        visited[s.y][s.x] = true;
+        queue.offer(new Point(0,0));
+        visited[0][0] = true;
 
         // 탐색 수행
         while(!queue.isEmpty()) {
 
             // 현재 위치
             Point current = queue.poll();
-            visited[current.y][current.x] = true;
-
-            // 목적지인 경우
-            if(current.y==e.y && current.x==e.x)
-                return current.maxDist;
 
             // 이동 가능한 위치 확인
             for(int d=0; d<4; d++) {
@@ -76,15 +74,14 @@ public class Main {
                 // 방문여부 확인
                 if(visited[ny][nx]) continue;
 
+                // 거리 차 확인
+                if(Math.abs(map[current.y][current.x]-map[ny][nx])>distLen) continue;
+
                 // 탐색 위치 추가
-                queue.add(
-                    new Point(ny,nx,
-                    Math.abs(map[current.y][current.x]-map[ny][nx]),
-                    current.maxDist));
+                queue.offer(new Point(ny,nx));
+                visited[ny][nx] = true;
             }
         }
-
-        return -1;
     }
 
     public static void main(String[] args) throws IOException {
@@ -115,17 +112,33 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<colSize; j++) {
                 if(Integer.parseInt(st.nextToken())==1)
-                    points.add(new Point(i,j,0,0));
+                    points.add(new Point(i,j));
             }
         }
 
-        // 색깔된 위치 거리 확인
-        answer = 0;
-        for(int i=0; i<points.size()-1; i++) {
-            for(int j=i+1; j<points.size(); j++) {
+        // 모든 거리 확인
+        answer = -1;
+        int left = 0;
+        int right = (int)1e9;
+        
+        while(left<=right) {
 
-                // 거리 확인
-                answer = Math.max(answer,solve(i,j));
+            // 차이 설정
+            int mid = (left+right)/2;
+
+            // 차이를 기준으로 거리 확인
+            solveDiff(mid);
+
+            // 색깔 위치 방문 여부 확인
+            boolean flag = solveVisited();
+
+            // 미방문이 존재하는 경우
+            if(!flag) left = mid+1;
+
+            // 모두 방문한 경우
+            else {
+                answer = mid;
+                right = mid-1;
             }
         }
 
