@@ -18,9 +18,6 @@ public class Main {
         // 차례로 확인
         for(int i=0; i<nums.length; i++) {
 
-            // 갱신
-            b = Math.max(a,b);
-
             // 만약 제거되는 수인 경우
             if(nums[i]==number) continue;
 
@@ -33,13 +30,14 @@ public class Main {
 
                 // 다른 경우
                 else {
+                    b = Math.max(a,b);
                     preNum = nums[i];
                     a = 1;
                 }
             }
         }
         
-        return b;
+        return Math.max(a,b);
     }
 
     public static void main(String[] args) throws IOException {
