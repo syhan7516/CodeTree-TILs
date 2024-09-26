@@ -31,6 +31,9 @@ public class Main {
     // 숫자 선택 메서드
     public static void solve(int idx, int cnt, int selectedCnt, int sum) {
 
+        // 이미 불가능한 경우
+        if((numCnt-cnt+selectedCnt)<=answer) return;
+
         // 숫자 선택이 완료된 경우
         if(cnt==numCnt) {
             answer = Math.max(answer,selectedCnt);
@@ -46,7 +49,6 @@ public class Main {
             if(carry(sum,nums[i])) continue;
             else solve(i+1,cnt+1,selectedCnt+1,sum+nums[i]);
         }
-
     }
 
     public static void main(String[] args) throws IOException {
