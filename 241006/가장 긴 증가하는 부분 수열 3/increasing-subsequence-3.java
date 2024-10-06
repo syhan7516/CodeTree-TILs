@@ -21,22 +21,23 @@ public class Main {
         for(int i=0; i<numCnt; i++)
             nums[i] = Integer.parseInt(st.nextToken());
         
-        // 가장 긴 증가하는 부분 수열 구하기
+        // LCS 구하기
         for(int i=0; i<numCnt; i++) {
             
             // 길이
             int maxLen = 1;
 
             // 이전 숫자 확인
-            for(int j=i-1; j>0; j--) {
+            for(int j=i-1; j>=0; j--) {
 
                 // 비교
-                maxLen = Math.max(maxLen,dp[j]+1);
+                if(nums[i]>nums[j])
+                    maxLen = Math.max(maxLen,dp[j]+1);
             }
-
+            
             // LCS 값 저장 및 결과 갱신
             dp[i] = maxLen;
-            answer = Math.max(answer,maxLen);
+            answer = Math.max(answer,dp[i]);
         }
 
         // 결과 출력
